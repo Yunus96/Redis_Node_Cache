@@ -53,6 +53,6 @@ function cache(req, res, next){
     })
 }
 
-app.get('/repos/:username', getRepose)
+app.get('/repos/:username', cache, getRepose)
 
 app.listen(PORT, ()=> console.log( `server listening on ${PORT}`))
