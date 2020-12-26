@@ -4,7 +4,7 @@
   "description": "Using Redis for Caching",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "boom": "nodemon server.js"
   },
   "author": "Mohammad Yunus",
   "license": "ISC",
@@ -12,5 +12,8 @@
     "express": "^4.17.1",
     "node-fetch": "^2.6.1",
     "redis": "^3.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
   }
 }
