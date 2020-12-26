@@ -10,8 +10,8 @@ const client = redis.createClient(REDIS_PORT)
 
 const app = express();
 
-function setResponse(username, repo){
-    return `<h2>${username} has ${repo} github repos</h2>`
+function setResponse(username, repos){
+    return `<h2>${username} has ${repos} github repos</h2>`
 }
 
 //make request to github for data
@@ -23,16 +23,14 @@ async function getRepose(req, res, next){
         const response = await fetch(`https://api.github.com/users/${username}`)
         const data = await response.json();
 
-       
         const repos = data.public_repos;
 
         // Set data to redis
         client.setex(username, 3600, repos)
 
-        res.send(setResponse(username, repos))
-
-        
-    } catch (err) {
+        res.send(setResponse(username, repos))    
+    } 
+    catch (err) {
         console.error(err);
         res.status(500)
     }
