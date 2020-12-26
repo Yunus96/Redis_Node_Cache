@@ -1,3 +1,4 @@
+const e = require('express');
 const express = require('express');
 const fetch = require('node-fetch');
 const redis = require('redis');
@@ -35,6 +36,21 @@ async function getRepose(req, res, next){
         console.error(err);
         res.status(500)
     }
+}
+
+//Cache middleware
+function cache(req, res, next){
+    const { username } = req.params;
+
+    client.get(username, (err, data)=>{
+        if(err) throw err;
+
+        if(data !== null){
+            res.send(setResponse(username, data))
+        }else{
+            next();
+        }
+    })
 }
 
 app.get('/repos/:username', getRepose)
